@@ -18,7 +18,7 @@ try {
     const user=await User.create({
         name,password:hashedPassword,email
     })
-
+ 
     const token=await genToken(user._id)
 
     res.cookie("token",token,{
