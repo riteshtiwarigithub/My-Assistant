@@ -3,7 +3,7 @@ import bg from "../assets/authBg.png"
 import { IoEye } from "react-icons/io5";
 import { IoEyeOff } from "react-icons/io5";
 import { useNavigate } from 'react-router-dom';
-import { userDataContext } from '../context/userContext';
+import { userDataContext } from '../context/UserContext';
 import axios from "axios"
 function SignUp() {
   const [showPassword,setShowPassword]=useState(false)
@@ -25,12 +25,13 @@ try {
  setUserData(result.data)
   setLoading(false)
   navigate("/customize")
-} catch (error) {
-  console.log(error)
-  setUserData(null)
-  setLoading(false)
-  setErr(error.response.data.message)
+}catch (error) {
+  console.log(error);
+  setUserData(null);
+  setLoading(false);
+  setErr(error.response?.data?.message || "Network error. Server not responding.");
 }
+
     }
   return (
     <div className='w-full h-[100vh] bg-cover flex justify-center items-center' style={{backgroundImage:`url(${bg})`}} >

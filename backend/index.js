@@ -11,7 +11,10 @@ import geminiResponse from "./gemini.js"
 
 const app=express()
 app.use(cors({
-    origin:"http://localhost:5173",
+    origin:[
+        "http://localhost:5173",
+         "http://localhost:3000"
+        ],
     credentials:true
 }))
 const port=process.env.PORT || 5000
