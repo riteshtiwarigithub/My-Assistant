@@ -25,12 +25,12 @@ export const signUp = async (req, res) => {
 
     const token = await genToken(user._id)
 
-    // ✅ Updated cookie settings for production
+    // ✅ CRITICAL FIX: Add domain explicitly
     res.cookie("token", token, {
       httpOnly: true,
       maxAge: 7 * 24 * 60 * 60 * 1000,
-      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
-      secure: process.env.NODE_ENV === 'production', // true in production, false in dev
+      sameSite: 'none', // ✅ Required for cross-origin
+      secure: true,     // ✅ Required for cross-origin
       path: '/'
     })
 
@@ -59,12 +59,12 @@ export const Login = async (req, res) => {
 
     const token = await genToken(user._id)
 
-    // ✅ Updated cookie settings for production
+    // ✅ CRITICAL FIX: Add domain explicitly
     res.cookie("token", token, {
       httpOnly: true,
       maxAge: 7 * 24 * 60 * 60 * 1000,
-      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
-      secure: process.env.NODE_ENV === 'production', // true in production, false in dev
+      sameSite: 'none', // ✅ Required for cross-origin
+      secure: true,     // ✅ Required for cross-origin
       path: '/'
     })
 
@@ -78,11 +78,10 @@ export const Login = async (req, res) => {
 
 export const logOut = async (req, res) => {
   try {
-    // ✅ Updated clearCookie settings
     res.clearCookie("token", {
       httpOnly: true,
-      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
-      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'none',
+      secure: true,
       path: '/'
     })
     return res.status(200).json({ message: "log out successfully" })
