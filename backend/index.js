@@ -12,14 +12,19 @@ import geminiResponse from "./gemini.js"
 const app=express()
 app.use(cors({
     origin:[
-        "http://localhost:5173",
+         "http://localhost:5173",
+         "http://localhost:3000",
          "https://virtual-assistant-frontend-hlng.onrender.com"
         ],
-    credentials:true
+    credentials:true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
 }))
+
 const port=process.env.PORT || 5000
 app.use(express.json())
 app.use(cookieParser())
+app.use(express.urlencoded({ extended: true }))
 app.use("/api/auth",authRouter)
 app.use("/api/user",userRouter)
 

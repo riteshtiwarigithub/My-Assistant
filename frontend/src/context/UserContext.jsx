@@ -2,11 +2,12 @@ import axios from 'axios'
 import React, { createContext, useEffect, useState } from 'react'
 export const userDataContext=createContext()
 function UserContext({children}) {
-    const serverUrl = import.meta.env.VITE_API_URL || "https://virtual-assistant-backend-pyni.onrender.com"
+    const serverUrl = import.meta.env.VITE_API_URL || "http://localhost:8000"
     const [userData,setUserData]=useState(null)
     const [frontendImage,setFrontendImage]=useState(null)
      const [backendImage,setBackendImage]=useState(null)
      const [selectedImage,setSelectedImage]=useState(null)
+     axios.defaults.withCredentials = true
     const handleCurrentUser=async ()=>{
         try {
             const result=await axios.get(`${serverUrl}/api/user/current`,{withCredentials:true})
